@@ -2,5 +2,9 @@
   {
     "name": "configs/options",
     "description": "{name: <name>, description: <description>}"
+  },
+  {
+    "name": "example",
+    "description": "example description"
   }
 ]
