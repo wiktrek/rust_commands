@@ -11,5 +11,9 @@
   {
     "name": "wiktrek/gh",
     "link": "https://github.com/wiktrek"
+  },
+  {
+    "name": "wiktrek/website",
+    "link": "https://wiktrek.xyz/"
   }
 ]
