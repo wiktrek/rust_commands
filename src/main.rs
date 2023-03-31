@@ -9,7 +9,8 @@ fn main() {
     let replace_option = option.replace("\r\n", "");
     match replace_option.as_str() {
     "web" => web(),
-    _ => panic!("Invalid option")
+    "info" => info(),
+    _ => return println!("Invalid option")
     }
 }
 fn web() {
@@ -19,4 +20,7 @@ fn web() {
     .read_line(&mut option).expect("Couldn’t read from stdin");
     let replace_option = option.replace("\r\n", "");
 options::web(replace_option)
+}
+fn info() {
+    options::info()
 }

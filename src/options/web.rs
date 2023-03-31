@@ -20,6 +20,5 @@ pub fn web(link: String) {
             let result = webbrowser::open(l.link.as_str());
         println!("{:?}", result);
         }
-        println!("{:?}", l.link);
     }
 }
