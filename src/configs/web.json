@@ -2,5 +2,14 @@
   {
     "name": "github_repo",
     "link": "https://github.com/wiktrek/rust_commands"
+  },
+  {
+    "name": "rust",
+    "link": "https://rust.wiktrek.xyz/"
+  },
+
+  {
+    "name": "wiktrek/gh",
+    "link": "https://github.com/wiktrek"
   }
 ]
