@@ -1,14 +1,18 @@
 use std::io;
-use webbrowser;
+// 
+mod options;
 fn main() {
     let mut option = String::new();
     println!("Enter option");
     io::stdin()
     .read_line(&mut option).expect("Couldn’t read from stdin");
     println!("Hello, world!");
-    github();
-println!("fortnite")
+    match option.as_str() {
+    "web" => web(),
+    _ => panic!("Invalid option")
+    }
+    options::web(option);
 }
-fn github() -> Result<(), std::io::Error> {
-    webbrowser::open("http://github.com")
-}   
+fn web() {
+
+}
