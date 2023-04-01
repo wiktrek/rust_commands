@@ -30,17 +30,20 @@ return option.to_string()
 
 }
 fn cmd_run(cmd: String) {
-    let path = Path::new("src/configs/options.json");
+    let path = Path::new("src/configs/cmds.json");
     let file = fs::File::open(path).expect("failed to open");
 
     let read_to_json:Vec<Cmds> = serde_json::from_reader(&file).expect("error while reading or parsing");
     for cmd_option in read_to_json{
+     if cmd != cmd_option.name {
+return println!("error: Couldn't find your command")
+     }
         let a = check_bash();
         if a == "err" {
             return println!("error")
     }
-    let output = Command::new("echo")
-        .arg("Hello world")
+    let output = Command::new(cmd_option.cmd)
+        .arg(cmd_option.arg)
         .output()
         .expect("Failed to execute command");
  assert_eq!(b"cmd result:\n", output.stdout.as_slice());
