@@ -1,7 +1,6 @@
 [
   {
     "name": "hello",
-    "cmd": "echo",
-    "arg": "hello"
+    "cmd": "echo hello"
   }
 ]

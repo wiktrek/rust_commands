@@ -7,7 +7,6 @@ use std::process::Command;
 struct Cmds {
     name: String,
     cmd: String,
-    arg: String,
 }
 pub fn cmds() {
     println!("Enter name of your cmd from your config");
@@ -22,10 +21,13 @@ fn check_bash() -> String{
     let mut option = String::new();
     io::stdin()
     .read_line(&mut option).expect("Couldn’t read from stdin");
-if option != "bash" || option != "cmd" {
-    return "err".to_string();
+    let replace_option = option.replace("\r\n", "");
+    println!("{}", replace_option);
+if replace_option == "bash" || replace_option == "cmd" {
+    
+    return option.to_string()
 } else {
-return option.to_string()
+return "err".to_string()
 }
 
 }
@@ -39,14 +41,33 @@ fn cmd_run(cmd: String) {
 return println!("error: Couldn't find your command")
      }
         let a = check_bash();
-        if a == "err" {
-            return println!("error")
-    }
-    let output = Command::new(cmd_option.cmd)
-        .arg(cmd_option.arg)
-        .output()
-        .expect("Failed to execute command");
- assert_eq!(b"cmd result:\n", output.stdout.as_slice());
-
-    }
+       let a_str = a.as_str(); 
+        if a_str == "err" {
+            return println!("error: wrong option")
+    };
+if a_str == "bash" {
+    print!("running bash command");
+    bash(cmd_option)
+} else if a_str == "cmd" {
+println!("running cmd command");
+cmd_fn(cmd_option)
+} else {
+    println!("error: wrong option")
+}
+}
+}
+fn bash(cmd: Cmds) {
+      let output = Command::new("sh")
+            .arg("-c")
+            .arg(cmd.cmd)
+            .output()
+            .expect("failed to execute process");
+        println!("{:?}",output)
+}
+fn cmd_fn(cmd: Cmds) {
+    let output = Command::new("cmd")
+            .args(["/C", cmd.cmd.as_str()])
+            .output()
+            .expect("failed to execute process");
+println!("{:?}", output)
 }
