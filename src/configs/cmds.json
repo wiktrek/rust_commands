@@ -1,6 +1,12 @@
 [
   {
     "name": "hello",
-    "cmd": "echo hello"
+    "cmd": "echo hello",
+    "os": "both"
+  },
+  {
+    "name": "ls",
+    "cmd": "ls",
+    "os": "bash"
   }
 ]

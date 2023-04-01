@@ -7,6 +7,7 @@ use std::process::Command;
 struct Cmds {
     name: String,
     cmd: String,
+    os: String,
 }
 pub fn cmds() {
     println!("Enter name of your cmd from your config");
@@ -16,18 +17,30 @@ pub fn cmds() {
     let cmd = option.replace("\r\n", "");
     cmd_run(cmd)
 }
-fn check_bash() -> String{
+fn check_bash(cmd: Cmds){
     println!("bash or cmd");
     let mut option = String::new();
     io::stdin()
     .read_line(&mut option).expect("Couldn’t read from stdin");
     let replace_option = option.replace("\r\n", "");
     println!("{}", replace_option);
-if replace_option == "bash" || replace_option == "cmd" {
+if replace_option == "bash"{
+    if replace_option == cmd.os.as_str() || cmd.os.as_str() == "both"{
+    return bash(cmd);
+
+    }
+        return println!("error")
+
+} else if replace_option == "cmd" {
+    if replace_option == cmd.os.as_str() || cmd.os.as_str() == "both"{
+
+    return cmd_fn(cmd)
     
-    return option.to_string()
-} else {
-return "err".to_string()
+    }
+    return println!("error: wrong option")
+}else {
+
+return println!("error: wrong option (bash/cmd)")
 }
 
 }
@@ -37,24 +50,11 @@ fn cmd_run(cmd: String) {
 
     let read_to_json:Vec<Cmds> = serde_json::from_reader(&file).expect("error while reading or parsing");
     for cmd_option in read_to_json{
-     if cmd != cmd_option.name {
-return println!("error: Couldn't find your command")
+     if cmd == cmd_option.name {
+    return check_bash(cmd_option);
      }
-        let a = check_bash();
-       let a_str = a.as_str(); 
-        if a_str == "err" {
-            return println!("error: wrong option")
-    };
-if a_str == "bash" {
-    print!("running bash command");
-    bash(cmd_option)
-} else if a_str == "cmd" {
-println!("running cmd command");
-cmd_fn(cmd_option)
-} else {
-    println!("error: wrong option")
-}
-}
+} 
+return println!("error: Couldn't find your command")
 }
 fn bash(cmd: Cmds) {
       let output = Command::new("sh")
